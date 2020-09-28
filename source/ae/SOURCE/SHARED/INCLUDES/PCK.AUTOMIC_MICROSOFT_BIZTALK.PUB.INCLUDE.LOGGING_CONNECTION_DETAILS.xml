@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-15" standalone="no"?><uc-export clientvers="11.0.0">
+<JOBI name="PCK.AUTOMIC_MICROSOFT_BIZTALK.PUB.INCLUDE.LOGGING_CONNECTION_DETAILS">
+<HEADER state="1">
+<Title/>
+<ArchiveKey1/>
+<ArchiveKey2/>
+<OH_SubType/>
+</HEADER>
+<SCRIPT mode="1" state="1">
+<MSCRI><![CDATA[!---------------------Logging Connection Details-------------------------------------------------------------------
+: SET &UC4RB_LOGGING_PARAMETER# = "Database name"
+: SET &UC4RB_LOGGING_PARAMETER_VAL# = "&UC4RB_BIZ_DB_NAME#"
+: INC PCK.ITPA_SHARED.PRV.INCLUDE.LOGGING.PARAM
+: SET &UC4RB_LOGGING_PARAMETER# = "Database server instance name"
+: SET &UC4RB_LOGGING_PARAMETER_VAL# = "&UC4RB_BIZ_DB_INSTANCE#"
+: INC PCK.ITPA_SHARED.PRV.INCLUDE.LOGGING.PARAM
+: SET &UC4RB_LOGGING_PARAMETER# = "Database server name"
+: SET &UC4RB_LOGGING_PARAMETER_VAL# = "&UC4RB_BIZ_DB_SRV_NAME#"
+: INC PCK.ITPA_SHARED.PRV.INCLUDE.LOGGING.PARAM
+: SET &UC4RB_LOGGING_PARAMETER# = "Port number"
+: SET &UC4RB_LOGGING_PARAMETER_VAL# = "&UC4RB_BIZ_PORT#"
+: INC PCK.ITPA_SHARED.PRV.INCLUDE.LOGGING.PARAM]]></MSCRI>
+</SCRIPT>
+<DOCU_Docu state="1" type="text">
+<DOC><![CDATA[Common AE script to log Connection details parameters.
+]]></DOC>
+</DOCU_Docu>
+</JOBI>
+</uc-export>

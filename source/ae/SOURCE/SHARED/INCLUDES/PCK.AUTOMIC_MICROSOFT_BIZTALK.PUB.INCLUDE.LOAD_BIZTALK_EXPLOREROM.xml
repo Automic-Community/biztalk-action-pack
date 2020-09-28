@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-15" standalone="no"?><uc-export clientvers="11.0.0">
+<JOBI name="PCK.AUTOMIC_MICROSOFT_BIZTALK.PUB.INCLUDE.LOAD_BIZTALK_EXPLOREROM">
+<HEADER state="1">
+<Title/>
+<ArchiveKey1/>
+<ArchiveKey2/>
+<OH_SubType/>
+</HEADER>
+<SCRIPT mode="1" state="1">
+<MSCRI><![CDATA[! Initialize the error
+$errors = 0
+! Load powershell utility
+: INC PCK.ITPA_SHARED.PUB.INCLUDE.POWERSHELL_UTILITY
+
+! check if BizTalk ExplorerOM assembly module is available and load it
+function LoadModule{
+  param($ModuleName)
+  $targetmodule=Get-Module -Name $ModuleName
+  if(! $targetmodule){
+    Write-Host "INFO: Loading module" $ModuleName
+    [void] [System.reflection.Assembly]::LoadWithPartialName("Microsoft.BizTalk.ExplorerOM")
+    if(! $? ) {
+      Write-Host "ERROR: Unable to load module" $ModuleName
+      __uc_return(1)
+    }
+  }
+}
+
+LoadModule -ModuleName "Microsoft.BizTalk.ExplorerOM"
+
+! Set the parameter to stop in order to terminate the script execution on error
+$ErrorActionPreference= 'Stop'
+! To ignore DisplayDeprecationWarnings
+$WarningPreference= 'SilentlyContinue']]></MSCRI>
+</SCRIPT>
+<DOCU_Docu state="1" type="text">
+<DOC><![CDATA[Initializes the PowerShell environment to execute our script and PowerCLI cmdlets. Following is initialized:
+* Load BizTalk ExplorerOM
+
+
+]]></DOC>
+</DOCU_Docu>
+</JOBI>
+</uc-export>

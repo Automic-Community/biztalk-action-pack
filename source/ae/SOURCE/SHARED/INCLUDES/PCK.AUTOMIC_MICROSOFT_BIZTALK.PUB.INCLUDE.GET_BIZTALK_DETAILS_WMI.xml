@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-15" standalone="no"?><uc-export clientvers="11.0.0">
+<JOBI name="PCK.AUTOMIC_MICROSOFT_BIZTALK.PUB.INCLUDE.GET_BIZTALK_DETAILS_WMI">
+<HEADER state="1">
+<Title/>
+<ArchiveKey1/>
+<ArchiveKey2/>
+<OH_SubType/>
+</HEADER>
+<SCRIPT mode="1" state="1">
+<MSCRI><![CDATA[ $btsSettings = get-wmiobject MSBTS_GroupSetting -namespace 'root\MicrosoftBizTalkServer'
+ $dbInstance = $btsSettings.MgmtDbServerName
+ $dbName = $btsSettings.MgmtDbName]]></MSCRI>
+</SCRIPT>
+<DOCU_Docu state="1" type="text">
+<DOC><![CDATA[Get local BizTalk DBName and DB Server from WMI]]></DOC>
+</DOCU_Docu>
+</JOBI>
+</uc-export>

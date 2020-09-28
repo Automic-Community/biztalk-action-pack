@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="ISO-8859-15" standalone="no"?><uc-export clientvers="11.0.0">
+<JOBI name="PCK.AUTOMIC_MICROSOFT_BIZTALK.PUB.INCLUDE.COMMON_FUNCTIONS">
+<HEADER state="1">
+<Title/>
+<ArchiveKey1/>
+<ArchiveKey2/>
+<OH_SubType/>
+</HEADER>
+<SCRIPT mode="1" state="1">
+<MSCRI><![CDATA[function start-application($application)
+ {
+	 Write-Host `r`nApplication status: $application.status`r`n
+    if ( $application.status -eq "Stopped")
+    {
+      "Starting application " + $application.name
+      $application.Start("StartAll")
+    }else{
+           Write-Host `r`nApplication are in invalid state `r`n
+           Write-Host `r`nApplication Name: $application.Name`r`n
+           Write-Host `r`nApplication status: $application.status`r`n
+      }
+ }
+
+ function stop-application($application, $stop_reference)
+ {
+ 	Write-Host `r`nApplication status: $application.status`r`n
+    if ( $application.status -eq "Started")
+    {
+	  if($stop_refences -eq 'Yes'){
+	 	 Write-Host "Issuing stop command to application reference"
+	 	 $application.Stop([Microsoft.BizTalk.ExplorerOM.ApplicationStopOption] "DisableAllReceiveLocations")
+	  	 $application.Stop([Microsoft.BizTalk.ExplorerOM.ApplicationStopOption] "StopReferencedApplications")
+	  	 $application.Stop([Microsoft.BizTalk.ExplorerOM.ApplicationStopOption] "UndeployAllPolicies")
+	 	 $application.Stop([Microsoft.BizTalk.ExplorerOM.ApplicationStopOption] "UnenlistAllOrchestrations")
+	 	 $application.Stop([Microsoft.BizTalk.ExplorerOM.ApplicationStopOption] "UnenlistAllSendPortGroups")
+	 	 $application.Stop([Microsoft.BizTalk.ExplorerOM.ApplicationStopOption] "UnenlistAllSendPorts")
+	  }else{
+	     Write-Host `r`nIssuing stop command to : $application.name `r`n
+	 	 $application.Stop([Microsoft.BizTalk.ExplorerOM.ApplicationStopOption] "StopAll")
+	  }
+
+
+    }else{
+           Write-Host `r`nApplication are in invalid state `r`n
+           Write-Host `r`nApplication Name: $application.Name`r`n
+           Write-Host `r`nApplication status: $application.status`r`n
+    }
+ }
+
+ function get-applications($app)
+ {
+    if ($app)
+    {
+	  $appObject=$BizTalkOM.Applications[$app]
+        if($appObject){
+              return $appObject
+        }else{
+             throw "Application:$app not found exception"
+        }
+  }
+ }
+]]></MSCRI>
+</SCRIPT>
+<DOCU_Docu state="1" type="text">
+<DOC><![CDATA[Routine BizTalk Function library 
+
+
+]]></DOC>
+</DOCU_Docu>
+</JOBI>
+</uc-export>

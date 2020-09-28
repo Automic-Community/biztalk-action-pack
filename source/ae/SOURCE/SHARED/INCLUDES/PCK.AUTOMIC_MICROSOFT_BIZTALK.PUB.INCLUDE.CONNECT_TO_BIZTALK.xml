@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ISO-8859-15" standalone="no"?><uc-export clientvers="11.0.0">
+<JOBI name="PCK.AUTOMIC_MICROSOFT_BIZTALK.PUB.INCLUDE.CONNECT_TO_BIZTALK">
+<HEADER state="1">
+<Title/>
+<ArchiveKey1/>
+<ArchiveKey2/>
+<OH_SubType/>
+</HEADER>
+<SCRIPT mode="1" state="1">
+<MSCRI><![CDATA[:SET &UC4RB_BIZ_CONNECT_CMDLET# = "SERVER='"
+!     Buidling Connect command
+
+!     Database server name
+:     IF &UC4RB_BIZ_DB_SRV_NAME# NE ""
+:       INC PCK.AUTOMIC_MICROSOFT_BIZTALK.PUB.INCLUDE.ESCAPE_ARG_VALUE "&TEMP_OPTION_VALUE#" = "&UC4RB_BIZ_DB_SRV_NAME#"
+:       SET &UC4RB_BIZ_CONNECT_CMDLET# = STR_CAT(&UC4RB_BIZ_CONNECT_CMDLET#, "&UC4RB_BIZ_ESC_VALUE#")
+:     ELSE
+:       SET &UC4RB_BIZ_CONNECT_CMDLET# = STR_CAT(&UC4RB_BIZ_CONNECT_CMDLET#, "$dbInstance")
+:     ENDIF
+
+!     Database server instance name
+:     IF &UC4RB_BIZ_DB_INSTANCE# NE ""
+:       INC PCK.AUTOMIC_MICROSOFT_BIZTALK.PUB.INCLUDE.ESCAPE_ARG_VALUE "&TEMP_OPTION_VALUE#" = "&UC4RB_BIZ_DB_INSTANCE#"
+:       SET &UC4RB_BIZ_CONNECT_CMDLET# = STR_CAT(&UC4RB_BIZ_CONNECT_CMDLET#, "\&UC4RB_BIZ_ESC_VALUE#")
+:     ENDIF
+
+!     Port number
+:      IF &UC4RB_BIZ_PORT# NE ""
+:       INC PCK.AUTOMIC_MICROSOFT_BIZTALK.PUB.INCLUDE.ESCAPE_ARG_VALUE "&TEMP_OPTION_VALUE#" = "&UC4RB_BIZ_PORT#"
+:       SET &UC4RB_BIZ_CONNECT_CMDLET# = STR_CAT(&UC4RB_BIZ_CONNECT_CMDLET#, ",&UC4RB_BIZ_ESC_VALUE#")
+:      ENDIF
+:      SET &UC4RB_BIZ_CONNECT_CMDLET# = STR_CAT(&UC4RB_BIZ_CONNECT_CMDLET#, "'")
+
+!     Database name
+:     IF &UC4RB_BIZ_DB_NAME# NE ""
+:       INC PCK.AUTOMIC_MICROSOFT_BIZTALK.PUB.INCLUDE.ESCAPE_ARG_VALUE "&TEMP_OPTION_VALUE#" = "&UC4RB_BIZ_DB_NAME#"
+:       SET &UC4RB_BIZ_CONNECT_CMDLET# = STR_CAT(&UC4RB_BIZ_CONNECT_CMDLET#, ";DATABASE='&UC4RB_BIZ_ESC_VALUE#'")
+:     ELSE
+:       SET &UC4RB_BIZ_CONNECT_CMDLET# = STR_CAT(&UC4RB_BIZ_CONNECT_CMDLET#, ";DATABASE=$dbName")
+:     ENDIF
+
+!     Integrated Security
+:     SET &UC4RB_BIZ_CONNECT_CMDLET# = STR_CAT(&UC4RB_BIZ_CONNECT_CMDLET#, ";Integrated Security=SSPI")
+
+!     Get local BizTalk DBName and DB Server from WMI
+:     INC PCK.AUTOMIC_MICROSOFT_BIZTALK.PUB.INCLUDE.GET_BIZTALK_DETAILS_WMI
+
+!     Load BizTalk ExplorerOM
+:    INC  PCK.AUTOMIC_MICROSOFT_BIZTALK.PUB.INCLUDE.LOAD_BIZTALK_EXPLOREROM
+
+! === Connect the BizTalk Management database ===
+      $BizTalkOM = New-Object Microsoft.BizTalk.ExplorerOM.BtsCatalogExplorer
+      $BizTalkOM.ConnectionString ="&UC4RB_BIZ_CONNECT_CMDLET#"
+
+:    print "&UC4RB_BIZ_CONNECT_CMDLET#"]]></MSCRI>
+</SCRIPT>
+<DOCU_Docu state="1" type="text">
+<DOC><![CDATA[This include is used to build power CLI commands for connect/disconnect to BizTalk server as per the specified inputs. ]]></DOC>
+</DOCU_Docu>
+</JOBI>
+</uc-export>
