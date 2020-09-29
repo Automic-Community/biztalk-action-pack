@@ -2,7 +2,7 @@
 
 
 ###### Description
- This Docker action pack used to support the Docker feature on Automic Automation. [Check the Feature support by action pack](source/README.md)
+ With the Action Pack for BizTalk, CA Continuous Delivery Automation (formerly known as CA Automic Release Automation) helps you automate BizTalk operations. [Check the Feature support by action pack](source/README.md)
 
 ###### Prerequisite:
 	1. AE (Automation Engine) is installed. 
